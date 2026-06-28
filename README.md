@@ -123,6 +123,16 @@ People involved in implementation:
 * **Encourages Best Practices:** Clean Code, OOP Principles, Design Patterns, maintainable code.
 
 ---
+---
+---
+---
+
+**TOPIC COMPLETED MOVING TO NEXT**
+
+---
+---
+---
+---
 
 ## * Software Design Principles
 Software design principles are guidelines that help software developers create systems that are easy to understand, maintain, and extend. These principles can be applied at both the high-level and low-level design stages. Here are three cornerstone key software design principles:
@@ -255,6 +265,16 @@ Assume you've been asked to build a note-taking app that allows users to create 
 | **Requirements are well-known** | If a feature is guaranteed soon (e.g., adding image support in 2 sprints), preparing the data model now might save significant refactoring later. |
 | **Performance-Critical Areas** | Preemptively building and testing real-world usage patterns can catch bottlenecks early. |
 
+---
+---
+---
+---
+
+**TOPIC COMPLETED MOVING TO NEXT**
+
+---
+---
+---
 ---
 
 ## * SOLID Principles: Single Responsibility Principle (SRP)
@@ -914,6 +934,16 @@ There are various benefits to using the Dependency Inversion Principle (DIP) in 
 * **Scalability:** You can scale or upgrade parts of your codebase without a massive rewrite.
 
 ---
+---
+---
+---
+
+**TOPIC COMPLETED MOVING TO NEXT**
+
+---
+---
+---
+---
 
 ## * Unified Modeling Language (UML)
 
@@ -967,3 +997,187 @@ There are seven main types of behavioral diagrams in UML, each serving a specifi
 > [!NOTE]
 > **Focusing on Low-Level Design (LLD):**
 > When diving into Low-Level Design, the focus is on the internal structure and detailed interaction of software components. While all UML diagrams have their place, the **Class Diagram** is considered the most important for mastering LLD. It provides a clear view of the classes, their attributes, methods, and relationships, making it essential for understanding how to design and implement software systems effectively.
+
+### UML Class Diagrams: Introduction
+A UML Class Diagram provides a high-level overview of the system architecture. It captures the system's classes, interfaces, enumerations, their attributes and operations (methods), and the relationships among them. It is instrumental in both forward and reverse engineering processes and is widely used in modeling object-oriented systems.
+
+Class diagrams support various design activities including domain modeling, data modeling, and the architectural representation of systems. These diagrams are often created during the early stages of the software development lifecycle and refined as the project progresses.
+
+Looking at a class diagram, you must quickly be able to understand the system's structure and how different components interact with each other. This is particularly useful for new team members or stakeholders who need to get up to speed with the system's design regardless of understanding the underlying code.
+
+In this section, we will explore the various components of UML Class Diagrams, including classes, attributes, methods, and relationships. We will also discuss the notations used to represent these elements and how they can be effectively utilized in software design.
+
+### UML Class Notations
+
+#### 1. Class representation
+A class in UML is depicted as a rectangle divided into three compartments:
+* **Top compartment:** Contains the class name (bold and centered).
+* **Middle compartment:** Lists the attributes.
+* **Bottom compartment:** Lists the operations (methods).
+
+![Class Representation](IMAGES/uml/class.png)
+
+Each attribute or method is listed with its visibility marker, name, and type (for attributes) or return type (for methods). Parameters for methods are also specified in the parentheses.
+
+#### 2. Visibility Markers
+Visibility markers define access levels for attributes and operations:
+* **Public (+):** Accessible from any other class.
+* **Private (-):** Accessible only within the class itself.
+* **Protected (#):** Accessible within the class and its subclasses.
+* **Package (~):** Accessible within the same package.
+
+These markers help enforce encapsulation, a core principle in object-oriented design.
+
+#### 3. Attributes and Method System
+Attributes and methods follow this syntax in class diagrams:
+
+**3.1 Attributes**
+`visibility name: Type [multiplicity] = DefaultValue`
+
+Let's break this down:
+* `visibility`: The visibility marker (e.g., +, -, #, ~).
+* `name`: The name of the attribute.
+* `Type`: The data type of the attribute (e.g., int, String).
+* `multiplicity`: An optional field indicating how many instances of the attribute can exist (e.g., 0..1, 1..*, etc.).
+* `DefaultValue`: An optional default value for the attribute.
+
+For example, if you wish to represent the following statement: 
+`public int age = 21;`
+
+using a class diagram, then the conversion will look like this: 
+`+ age: int = 21`
+
+![UML Representation of Attribute](IMAGES/uml/attribute.png)
+
+**3.2 Methods (Operations):**
+`visibility name(parameterName1: Type1,...): ReturnType`
+
+Let's break this down:
+* `visibility`: The visibility marker (e.g., +, -, #, ~).
+* `name`: The name of the method.
+* `parameterName`: The name of the parameter.
+* `Type`: The data type of the parameter.
+* `ReturnType`: The return type of the method.
+
+For example, if you wish to represent the method inside the class:
+```java
+class Person {
+    private boolean isAdult(int age) { 
+        return age >= 18; 
+    }
+}
+```
+
+using a class diagram, then the conversion will look like this:
+`- isAdult(age:int): boolean`
+
+![UML Representation of Method](IMAGES/uml/method.png)
+
+Optional elements like multiplicity, default values, and stereotypes (e.g., `<<constructor>>`, `<<static>>`) can also be included to enrich the diagram.
+
+#### 4. Interface
+An interface defines a contract that other classes must follow. It contains only abstract methods (no implementation). UML class diagram for interfaces contains the following compartments:
+* **Name compartment:** Contains the stereotype `<<interface>>` and the name of the interface.
+* **Operation compartment:** Contains method signatures (i.e., abstract operations to be implemented).
+
+For example, consider the following interface that can be represented as the diagram given below:
+```java
+// Interface for classes that can calculate pay
+public interface Payable {
+    
+    // Method to calculate pay
+    double calculatePay();
+}
+```
+
+![UML Representation of Interface](IMAGES/uml/interface.png)
+
+> [!NOTE]
+> Note that by default, interfaces don't have a compartment for attributes like regular classes. However, there is an exception, i.e., If the interface declares constants, you may include an attribute compartment to show them.
+
+#### 5. Abstract Class
+An abstract class is a class that cannot be instantiated and may contain both implemented and unimplemented (abstract) methods. It is represented in UML class diagrams with the `<<abstract>>` stereotype above the class name and the class name being italic.
+```java
+// Abstract class representing an Animal
+public abstract class Animal {
+
+    // Abstract method to make sound
+    public abstract void makeSound();
+}
+```
+The diagram representation of the above code will look like this:
+
+![UML Representation of Abstract Class](IMAGES/uml/abstract.png)
+
+#### 6. Enumeration (Enum)
+An enumeration is a data type consisting of a fixed set of named values, often called literals. It is represented in UML class diagrams with the `<<enumeration>>` stereotype above the name in one compartment and list of literals in another compartment.
+
+![UML Representation of Enumeration](IMAGES/uml/enum.png)
+
+### Perspectives of Class Diagrams
+
+#### 1. Conceptual Perspective
+Its purpose is to provide a high-level view of the system, focusing on the main concepts and their relationships. It is often used in the early stages of system design to establish a common understanding among stakeholders (Business Analysts, Domain Experts).
+* **Diagram Style:**
+  * Classes represent real-world concepts, like Customer, Order, Invoice.
+  * No attributes or operations are shown unless absolutely necessary.
+  * Relationships depict business-level associations, not implementation details.
+
+#### 2. Specification Perspective
+Its purpose is to define the structure and behavior of the system's classes, focusing on responsibilities, roles, and collaborations without specifying code-level details. This view highlights what operations a class should support, enabling interface and design-level planning. It is meant for System Architects and Software Designers.
+* **Diagram Style:**
+  * Includes abstract classes, interfaces, and key public methods.
+  * Shows associations and inheritance relationships between classes and interfaces.
+  * Focuses on contract-based design (e.g., what a class promises to do).
+
+#### 3. Implementation Perspective
+Its purpose is to present a concrete, code-level view of the system. This perspective includes complete class definitions, access modifiers, attributes with types and default values, and full method signatures. It is mainly used by developers and software engineers during the implementation phase.
+* **Diagram Style:**
+  * Shows all attributes (public, private, etc.) and methods.
+  * Includes visibility markers (`+` public, `-` private, `#` protected).
+  * May show data types, default values, and even constructors.
+  * All relationships — including association, aggregation, composition, inheritance, and dependency — are explicitly visualized.
+
+### Relationship Between Classes
+
+#### 1. Association (USE-A)
+Association represents a general relationship between two classes where one class uses or interacts with another. It can be: one-to-one, one-to-many or many-to-many.
+* **Example:** A teacher can teach multiple students, and a student can be taught by multiple teachers (many-to-many association).
+* **UML Notation:** A solid line between the two classes.
+
+#### 2. Aggregation (HAS-A)
+Aggregation is a "whole-part" relationship where a class is made up of one or more classes, but those parts can exist independently.
+* **Example:** A Department has multiple Professors. If the department is removed, the professors still exist.
+* **UML Notation:** A hollow diamond at the container (whole) class.
+
+#### 3. Composition (Strong HAS-A)
+Composition is a stronger form of aggregation where the part cannot exist without the whole. It is a "whole-part" relationship where the part is dependent on the whole.
+* **Example:** A House has Rooms. If the House is destroyed, so are the Rooms.
+* **UML Notation:** A filled diamond at the whole side.
+
+#### 4. Inheritance
+Inheritance defines an IS-A relationship where a subclass inherits properties and behavior from a superclass. The subclass can extend or override the superclass's attributes and methods.
+* **Example:** A Dog is an Animal.
+* **UML Notation:** A solid line with a hollow triangle pointing to the parent class.
+
+#### 5. Realization (Implementation)
+Realization is the relationship between a class and an interface. The class agrees to implement the behavior declared by the interface.
+* **Example:** A Circle class implements the Shape interface.
+* **UML Notation:** A dashed line with a hollow triangle pointing to the interface.
+
+#### 6. Dependency
+Dependency indicates that a class uses another class temporarily. Changes to the used class may affect the dependent class.
+* **Example:** `OrderService` depends on `PaymentService` to process payments.
+* **UML Notation:** A dashed line with an open arrow pointing to the class being used.
+
+### Summary Table
+| Relationship | UML Notation | Example |
+| :--- | :--- | :--- |
+| Association | Solid line | `Student ——— Teacher` |
+| Aggregation | Solid line with hollow diamond | `Department ◇——— Professor` |
+| Composition | Solid line with filled diamond | `House ◆——— Room` |
+| Inheritance | Solid line with hollow triangle | `Dog ———▷ Animal` |
+| Realization | Dashed line with hollow triangle | `Circle - - - ▷ Shape Interface` |
+| Dependency | Dashed line with open arrow | `Order - - - → Payment Services` |
+
+![Summary Table](IMAGES/uml/summary.png)
